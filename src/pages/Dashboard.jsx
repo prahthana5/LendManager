@@ -71,9 +71,9 @@ export default function Dashboard() {
                 }
             }
 
-            if (totalRepaid > principal) {
-                totalInterest += (totalRepaid - principal);
-            }
+            // Interest-First Model: Count repayments towards interest first, up to total interest accrued
+            const { interestAccrued } = calculateLoanStats(loan, loan.repayments);
+            totalInterest += Math.min(totalRepaid, interestAccrued);
 
             // Add to activities
             activities.push({
@@ -129,13 +129,15 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <SummaryCard
-                    title="செயலில் உள்ள கடன்கள்"
-                    value={stats.totalActive}
-                    icon={Wallet}
-                    colorClass="text-blue-600"
-                    bgClass="bg-blue-50"
-                />
+                <Link to="/loans?status=ACTIVE" className="block">
+                    <SummaryCard
+                        title="செயலில் உள்ள கடன்கள்"
+                        value={stats.totalActive}
+                        icon={Wallet}
+                        colorClass="text-blue-600"
+                        bgClass="bg-blue-50"
+                    />
+                </Link>
                 <SummaryCard
                     title="நிலுவை அசல்"
                     value={formatCurrency(stats.totalOutstanding)}
@@ -152,14 +154,16 @@ export default function Dashboard() {
                     colorClass="text-green-600"
                     bgClass="bg-green-50"
                 />
-                <SummaryCard
-                    title="தாமதமான கடன்கள்"
-                    value={stats.totalOverdue}
-                    subtext="வட்டி செலுத்தாதவை"
-                    icon={AlertCircle}
-                    colorClass="text-red-600"
-                    bgClass="bg-red-50"
-                />
+                <Link to="/loans?status=DELAYED" className="block">
+                    <SummaryCard
+                        title="தாமதமான கடன்கள்"
+                        value={stats.totalOverdue}
+                        subtext="வட்டி செலுத்தாதவை"
+                        icon={AlertCircle}
+                        colorClass="text-red-600"
+                        bgClass="bg-red-50"
+                    />
+                </Link>
             </div>
 
             <RecentActivity activities={stats.recentActivity} />

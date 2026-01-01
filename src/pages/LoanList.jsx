@@ -2,32 +2,52 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { loanService } from '../services/loanService';
 import LoanCard from '../components/LoanCard';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Plus, Search } from 'lucide-react';
+import { calculateLoanStats } from '../utils/calculations';
 
 export default function LoanList() {
     const { currentUser } = useAuth();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [loans, setLoans] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [filter, setFilter] = useState('ALL'); // ALL, ACTIVE, CLOSED
+    const [filter, setFilter] = useState(searchParams.get('status') || 'ALL'); // ALL, ACTIVE, CLOSED, DELAYED
     const [search, setSearch] = useState('');
 
     useEffect(() => {
-        async function fetchLoans() {
-            try {
-                const data = await loanService.getAllLoansWithRepayments(currentUser.uid);
-                setLoans(data);
-            } catch (err) {
-                console.error("Failed to fetch loans", err);
-            } finally {
-                setLoading(false);
-            }
-        }
         if (currentUser) fetchLoans();
     }, [currentUser]);
 
+    // Sync filter with URL status parameter
+    useEffect(() => {
+        const status = searchParams.get('status');
+        if (status) {
+            setFilter(status);
+        }
+    }, [searchParams]);
+
+    async function fetchLoans() {
+        try {
+            const data = await loanService.getAllLoansWithRepayments(currentUser.uid);
+            setLoans(data);
+        } catch (err) {
+            console.error("Failed to fetch loans", err);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     const filteredLoans = loans.filter(loan => {
-        const matchesStatus = filter === 'ALL' || loan.status === filter;
+        let matchesStatus = false;
+        if (filter === 'ALL') {
+            matchesStatus = true;
+        } else if (filter === 'DELAYED') {
+            const stats = calculateLoanStats(loan, loan.repayments);
+            matchesStatus = stats.isDelayed;
+        } else {
+            matchesStatus = loan.status === filter;
+        }
+
         const matchesSearch = loan.borrowerName.toLowerCase().includes(search.toLowerCase());
         return matchesStatus && matchesSearch;
     });
@@ -61,6 +81,7 @@ export default function LoanList() {
                 >
                     <option value="ALL">அனைத்தும்</option>
                     <option value="ACTIVE">செயலில்</option>
+                    <option value="DELAYED">தாமதமானவை</option>
                     <option value="CLOSED">முடிந்தது</option>
                 </select>
             </div>
