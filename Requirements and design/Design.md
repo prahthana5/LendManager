@@ -54,6 +54,8 @@ Structure of the React application.
   - `LoanDetails`: Full view of a loan + Repayment History.
 - **Repayment**
   - `RepaymentModal`: specific form to add a payment within Loan Details.
+- **Integrations**
+  - `ContactPicker`: Logic to invoke `navigator.contacts.select` for retrieving borrower names.
 
 ## 4. State Management
 - **Global Auth State**: React Context (`AuthContext`) to store current user.
@@ -71,6 +73,7 @@ match /users/{userId}/{document=**} {
 Ensures users can ONLY access their own data.
 
 ## 6. UX & Design System
+- **Language**: **Tamil** is the primary interface language.
 - **Theme**: Clean typography, High contrast for financial data.
 - **Mobile First**: Touch-friendly targets, hamburger menu or bottom nav.
 - **Indicators**:

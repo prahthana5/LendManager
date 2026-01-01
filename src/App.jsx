@@ -1,14 +1,35 @@
-import { useState } from 'react'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import Layout from './components/Layout';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import LoanList from './pages/LoanList';
+import LoanForm from './pages/LoanForm';
+import LoanDetails from './pages/LoanDetails';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <h1 className="text-3xl font-bold text-blue-600">
-        Lend Manager
-      </h1>
-    </div>
-  )
+    <Router>
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/" element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }>
+            <Route index element={<Dashboard />} />
+            <Route path="loans" element={<LoanList />} />
+            <Route path="loans/new" element={<LoanForm />} />
+            <Route path="loans/:id" element={<LoanDetails />} />
+            <Route path="loans/:id/edit" element={<LoanForm />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
+    </Router>
+  );
 }
 
-export default App
+export default App;

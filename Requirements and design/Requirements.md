@@ -55,6 +55,13 @@
 - Search loans by Borrower Name.
 - Filter by Status (Active, Closed, Overdue).
 
+### 3.6 Localization (New)
+- **Language**: The entire application interface must be in **Tamil**.
+- **Formatting**: Dates should follow the Tamil locale format (`ta-IN`).
+
+### 3.7 Native Integrations (New)
+- **Contact Picker**: logic to select a contact from the Android device's address book to autofill the "Borrower Name" field.
+
 ## 4. Non-Functional Requirements
 
 ### 4.1 Data Persistence & Sync
@@ -65,11 +72,13 @@
 - **Responsive Design**: optimized for both Desktop Web and Mobile screens.
 - **Android App**: Can be delivered as a Progressive Web App (PWA) installable on Android or a wrapped Native app.
 - **Aesthetics**: Clean, minimal, data-focused.
+- **Language**: **Tamil** is the primary language.
 
 ### 4.3 Constraints
 - **Currency**: Hardcoded to Indian Rupee (₹).
 - **Storage**: No media upload features. Database only stores strings and numbers.
 - **Cost**: Zero or Near-Zero operational cost (Free tier cloud services).
+- **Platform**: Contact Picker feature is restricted to supported Android browsers (Chrome/Edge) served over HTTPS.
 
 ## 5. Potential Tech Stack
 - **Frontend**: React.js (Vite) + TailwindCSS.
