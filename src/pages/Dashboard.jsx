@@ -138,22 +138,6 @@ export default function Dashboard() {
                         bgClass="bg-blue-50"
                     />
                 </Link>
-                <SummaryCard
-                    title="நிலுவை அசல்"
-                    value={formatCurrency(stats.totalOutstanding)}
-                    subtext="அசல் + வட்டி"
-                    icon={Clock}
-                    colorClass="text-orange-600"
-                    bgClass="bg-orange-50"
-                />
-                <SummaryCard
-                    title="வட்டி வருமானம்"
-                    value={formatCurrency(stats.totalInterest)}
-                    subtext="பெறப்பட்ட வட்டி"
-                    icon={TrendingUp}
-                    colorClass="text-green-600"
-                    bgClass="bg-green-50"
-                />
                 <Link to="/loans?status=DELAYED" className="block">
                     <SummaryCard
                         title="தாமதமான கடன்கள்"
@@ -164,6 +148,22 @@ export default function Dashboard() {
                         bgClass="bg-red-50"
                     />
                 </Link>
+                <SummaryCard
+                    title="வட்டி வருமானம்"
+                    value={formatCurrency(stats.totalInterest)}
+                    subtext="பெறப்பட்ட வட்டி"
+                    icon={TrendingUp}
+                    colorClass="text-green-600"
+                    bgClass="bg-green-50"
+                />
+                <SummaryCard
+                    title="நிலுவை அசல்"
+                    value={formatCurrency(stats.totalOutstanding)}
+                    subtext="அசல் + வட்டி"
+                    icon={Clock}
+                    colorClass="text-orange-600"
+                    bgClass="bg-orange-50"
+                />
             </div>
 
             <RecentActivity activities={stats.recentActivity} />
