@@ -53,7 +53,7 @@ export const loanService = {
 
     async getAllLoansWithRepayments(userId) {
         const loansRef = this.getLoansCollection(userId);
-        const loansSnap = await getDocs(query(loansRef, orderBy('createdAt', 'desc')));
+        const loansSnap = await getDocs(query(loansRef, orderBy('startDate', 'desc')));
 
         const loans = loansSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 

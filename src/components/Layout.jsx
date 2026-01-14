@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { LogOut, Home, Users, PlusCircle } from 'lucide-react';
+import { LogOut, Home, Users, PlusCircle, ReceiptText } from 'lucide-react';
 
 export default function Layout() {
     const { logout, currentUser } = useAuth();
@@ -34,6 +34,9 @@ export default function Layout() {
                             </Link>
                             <Link to="/loans" className="text-sm font-medium text-slate-700 hover:text-primary-600">
                                 கடன்கள்
+                            </Link>
+                            <Link to="/borrowers" className="text-sm font-medium text-slate-700 hover:text-primary-600">
+                                நபர்கள்
                             </Link>
                         </nav>
                     </div>
@@ -70,8 +73,12 @@ export default function Layout() {
                         <span className="text-xs mt-1">முகப்பு</span>
                     </Link>
                     <Link to="/loans" className="flex flex-col items-center justify-center w-full h-full text-slate-500 hover:text-primary-600">
-                        <Users className="w-6 h-6" />
+                        <ReceiptText className="w-6 h-6" />
                         <span className="text-xs mt-1">கடன்கள்</span>
+                    </Link>
+                    <Link to="/borrowers" className="flex flex-col items-center justify-center w-full h-full text-slate-500 hover:text-primary-600">
+                        <Users className="w-6 h-6" />
+                        <span className="text-xs mt-1">நபர்கள்</span>
                     </Link>
                     <Link to="/loans/new" className="flex flex-col items-center justify-center w-full h-full text-primary-600">
                         <PlusCircle className="w-8 h-8" />

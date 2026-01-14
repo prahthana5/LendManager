@@ -7,6 +7,8 @@ import Dashboard from './pages/Dashboard';
 import LoanList from './pages/LoanList';
 import LoanForm from './pages/LoanForm';
 import LoanDetails from './pages/LoanDetails';
+import BorrowerList from './pages/BorrowerList';
+import BorrowerDetails from './pages/BorrowerDetails';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
             <Route path="loans/new" element={<LoanForm />} />
             <Route path="loans/:id" element={<LoanDetails />} />
             <Route path="loans/:id/edit" element={<LoanForm />} />
+            <Route path="borrowers" element={<BorrowerList />} />
+            <Route path="borrowers/:name" element={<BorrowerDetails />} />
           </Route>
         </Routes>
       </AuthProvider>
