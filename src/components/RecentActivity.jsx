@@ -14,7 +14,7 @@ export default function RecentActivity({ activities }) {
                     activities.map((item) => (
                         <div key={item.id} className="px-6 py-4 flex items-center justify-between">
                             <div className="flex items-center gap-4">
-                                <div className={`p-2 rounded-full ${item.type === 'LOAN_CREATED' ? 'bg-blue-50 text-blue-600' : 'bg-green-50 text-green-600'}`}>
+                                <div className={`p-2 rounded-full ${item.type === 'LOAN_CREATED' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}`}>
                                     {item.type === 'LOAN_CREATED' ? <ArrowUpRight className="w-5 h-5" /> : <ArrowDownLeft className="w-5 h-5" />}
                                 </div>
                                 <div>
@@ -22,7 +22,7 @@ export default function RecentActivity({ activities }) {
                                     <p className="text-sm text-slate-500">{formatDate(item.date)}</p>
                                 </div>
                             </div>
-                            <span className={`font-medium ${item.type === 'LOAN_CREATED' ? 'text-slate-900' : 'text-green-600'}`}>
+                            <span className={`font-medium ${item.type === 'LOAN_CREATED' ? 'text-red-600' : 'text-green-600'}`}>
                                 {item.type === 'LOAN_CREATED' ? '-' : '+'}{formatCurrency(item.amount)}
                             </span>
                         </div>

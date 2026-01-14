@@ -142,7 +142,7 @@ export default function LoanDetails() {
                         loan.repayments.map((rep) => (
                             <div key={rep.id} className="px-6 py-4 flex items-center justify-between">
                                 <div>
-                                    <p className="font-medium text-slate-900">{formatCurrency(rep.amount)}</p>
+                                    <p className="font-medium text-green-600">+{formatCurrency(rep.amount)}</p>
                                     <p className="text-xs text-slate-500">{formatDate(rep.date)}</p>
                                 </div>
                                 <div className="text-right">
