@@ -42,8 +42,10 @@ export default function LoanCard({ loan }) {
                             <span className="font-medium">{loan.interestRate}% / மாதம்</span>
                         </div>
                         <div className="flex justify-between text-sm pt-2 border-t border-slate-100">
-                            <span className="text-slate-500">மொத்தம்</span>
-                            <span className="font-bold text-slate-900">{formatCurrency(stats.remainingBalance)}</span>
+                            <span className="text-slate-500">நிலுவைத் தொகை</span>
+                            <span className={`font-bold ${isActive ? 'text-orange-600' : 'text-slate-900'}`}>
+                                {formatCurrency(isActive ? stats.remainingBalance : 0)}
+                            </span>
                         </div>
                     </div>
                 </div>

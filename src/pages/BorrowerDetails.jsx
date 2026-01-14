@@ -64,7 +64,9 @@ export default function BorrowerDetails() {
 
     if (loading) return <div className="p-8 text-center text-slate-500">ஏற்றப்படுகிறது...</div>;
 
-    const netPending = data.loans.reduce((sum, loan) => sum + calculateLoanStats(loan, loan.repayments).remainingBalance, 0);
+    const netPending = data.loans
+        .filter(l => l.status === 'ACTIVE')
+        .reduce((sum, loan) => sum + calculateLoanStats(loan, loan.repayments).remainingBalance, 0);
 
     return (
         <div className="space-y-6 pb-20">
@@ -118,7 +120,7 @@ export default function BorrowerDetails() {
                                                 {formatCurrency(loan.principal)}
                                             </td>
                                             <td className="px-6 py-4 text-right font-bold text-orange-600">
-                                                {formatCurrency(stats.remainingBalance)}
+                                                {formatCurrency(loan.status === 'ACTIVE' ? stats.remainingBalance : 0)}
                                             </td>
                                             <td className="px-6 py-4">
                                                 <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${loan.status === 'ACTIVE' ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-600'}`}>

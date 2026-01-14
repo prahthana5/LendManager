@@ -94,7 +94,7 @@ export default function LoanDetails() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="card p-4 bg-orange-50 border-orange-100">
                     <p className="text-sm text-orange-800 mb-1">மீதமுள்ள தொகை</p>
-                    <p className="text-2xl font-bold text-orange-900">{formatCurrency(stats.remainingBalance)}</p>
+                    <p className="text-2xl font-bold text-orange-900">{formatCurrency(loan.status === 'ACTIVE' ? stats.remainingBalance : 0)}</p>
                     <p className="text-xs text-orange-700 mt-2">அசல்: {formatCurrency(stats.principal)} + வட்டி: {formatCurrency(stats.interestAccrued)}</p>
                 </div>
                 <div className="card p-4 bg-green-50 border-green-100">

@@ -31,7 +31,9 @@ export default function BorrowerList() {
                     }
 
                     acc[name].totalLent += stats.principal;
-                    acc[name].totalPending += stats.remainingBalance;
+                    if (loan.status === 'ACTIVE') {
+                        acc[name].totalPending += stats.remainingBalance;
+                    }
                     acc[name].loanCount += 1;
 
                     return acc;
